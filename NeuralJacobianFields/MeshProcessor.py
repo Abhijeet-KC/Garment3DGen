@@ -82,7 +82,7 @@ class MeshProcessor:
     @staticmethod
     def meshprocessor_from_file(fname, ttype, cpuonly=False, load_wks_samples=False, load_wks_centroids=False):
         if fname[-4:] == '.obj':
-            V, _, _, F, _, _ = igl.read_obj(fname)
+            V, _, _, F, _, _ = igl.readOBJ(fname) # read_obj() -> readOBJ()
         elif fname[-4:] == '.off':
             V,F,_ = igl.read_off(fname)
         elif fname[-4:] == '.ply':
@@ -290,7 +290,7 @@ class MeshProcessor:
 
 
     def sample_points(self, n):
-        bary, found_faces = igl.random_points_on_mesh(n, self.vertices, self.faces)
+        bary, found_faces, _ = igl.random_points_on_mesh(n, self.vertices, self.faces)  # unpacking 3rd arg
         vert_ind =  self.faces[found_faces]
         point_samples =  self.vertices[vert_ind[:,0]] * bary[:,0:1] + self.vertices[vert_ind[:,1]] * bary[:,1:2] + self.vertices[vert_ind[:,2]] * bary[:,2:3]
         normal_samples = self.normals[vert_ind[:,0]] * bary[:,0:1] + self.normals[vert_ind[:,1]] * bary[:,1:2] + self.normals[vert_ind[:,2]] * bary[:,2:3]

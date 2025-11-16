@@ -93,9 +93,9 @@ def loop(cfg):
     # output video
     video = Video(cfg.output_path)
     # GL Context
-    glctx = dr.RasterizeGLContext()
+    glctx = dr.RasterizeCudaContext() # Using Cuda instead of GL
 
-
+    print('Loading source mesh for Jacobian computation')
     load_mesh = get_mesh(cfg.mesh, output_path, cfg.retriangulate, cfg.bsdf)
 
     if use_target_mesh:
@@ -103,7 +103,7 @@ def loop(cfg):
         # We construct a Meshes structure for the target mesh
         trg_mesh_p3d = Meshes(verts=[target_mesh.v_pos], faces=[target_mesh.t_pos_idx])
 
-
+    print('Loading Jacobian source mesh')
     jacobian_source = SourceMesh.SourceMesh(0, str(output_path / 'tmp' / 'mesh.obj'), {}, 1, ttype=torch.float)
     if len(list((output_path / 'tmp').glob('*.npz'))) > 0:
         logging.warn(f'Using existing Jacobian .npz files in {str(output_path)}/tmp/ ! Please check if this is intentional.')

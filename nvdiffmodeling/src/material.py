@@ -75,9 +75,9 @@ def save_mtl(fn, material):
         f.write('newmtl defaultMat\n')
         if material is not None:
             f.write('bsdf   %s\n' % material['bsdf'])
-            f.write('map_kd texture_kd.png\n')
+            f.write('map_Kd texture_kd.png\n')
             texture.save_texture2D(os.path.join(folder, 'texture_kd.png'), texture.rgb_to_srgb(material['kd']))
-            f.write('map_ks texture_ks.png\n')
+            f.write('map_Ks texture_ks.png\n')
             texture.save_texture2D(os.path.join(folder, 'texture_ks.png'), material['ks'])
             f.write('bump texture_n.png\n')
             texture.save_texture2D(os.path.join(folder, 'texture_n.png'), material['normal'], lambda_fn=lambda x:(x+1)*0.5)

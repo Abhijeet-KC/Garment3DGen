@@ -10,7 +10,7 @@ consistency_vit_layer: 11
 
 # Mesh
 mesh: ./meshes/longsleeve.obj 
-target_mesh: ./meshes_target/jacket_sdf_new.obj
+target_mesh: ./meshes_target/BLA.obj # might need to change here
 retriangulate: 0
 
 # Render settings
